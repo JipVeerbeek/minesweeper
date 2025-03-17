@@ -28,11 +28,11 @@ public class GamePanel extends JPanel {
         JPanel gridPanel = new JPanel(new GridLayout(gridSize, gridSize));
         gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 80, 40, 80));
         
-        Cell[][] grid = new Cell[gridSize][gridSize]; // Declare the grid array
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                grid[i][j] = new Cell();
-                gridPanel.add(grid[i][j]);
+        Cell[][] grid = new Cell[gridSize][gridSize];
+        for (int row = 0; row < gridSize; row++) {
+            for (int col = 0; col < gridSize; col++) {
+                grid[row][col] = new Cell();
+                gridPanel.add(grid[row][col]);
             }
         }
         return gridPanel;

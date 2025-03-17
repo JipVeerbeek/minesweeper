@@ -20,20 +20,23 @@ public class Cell extends JPanel {
 
     private void registerMouseClick(MouseEvent e) {
         if (SwingUtilities.isRightMouseButton(e)) {
+            if (this.isRevealed) {
+                return;
+            }
             this.isFlagged = !this.isFlagged;
             if (this.isFlagged) {
-                System.out.println("Flagged");
                 this.setBackground(Color.ORANGE);
             } else {
-                System.out.println("Unflagged");
                 this.setBackground(null);
             }
         } else if (SwingUtilities.isLeftMouseButton(e)) {
+            if (this.isRevealed || this.isFlagged) {
+                return;
+            }
             if (this.isMine) {
                 System.out.println("Game Over");
                 this.setBackground(Color.BLACK);
             } else {
-                System.out.println("Safe");
                 this.isRevealed = true;
                 this.setBackground(Color.LIGHT_GRAY);
             }
