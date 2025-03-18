@@ -15,10 +15,10 @@ public class Cell extends JPanel {
 
     private int neighbouringMines;
 
-    private GameOver gameOver;
+    private Game game;
 
-    public Cell(int row, int col, boolean[][] mineLocationList, GameOver gameOver) {
-        this.gameOver = gameOver;
+    public Cell(int row, int col, boolean[][] mineLocationList, Game game) {
+        this.game = game;
 
         this.row = row;
         this.col = col;
@@ -37,7 +37,7 @@ public class Cell extends JPanel {
     }
 
     private void registerMouseClick(MouseEvent e) {
-        if (this.gameOver.isGameOver()) {
+        if (this.game.isGameOver()) {
             return;
         }
 
@@ -56,7 +56,7 @@ public class Cell extends JPanel {
                 return;
             }
             if (this.isMine) {
-                this.gameOver.setGameOver(true);
+                this.game.setGameOver(true);
                 this.setBackground(Color.BLACK);
             } else {
                 this.isRevealed = true;

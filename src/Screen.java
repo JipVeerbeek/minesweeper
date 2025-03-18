@@ -2,9 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Screen extends JFrame {
+    private Game game = new Game();
+    private DifficultySettings difficultySettings = new DifficultySettings();
     // Create panels
-    private GamePanel gamePanel = new GamePanel("Medium");
     private DifficultyPanel difficultyPanel = new DifficultyPanel();
+    private GamePanel gamePanel = new GamePanel(this.game, this.difficultySettings);
 
     // Constructor
     public Screen() {
@@ -21,8 +23,8 @@ public class Screen extends JFrame {
         this.addGamePanel();
 
         // Set the difficulty change listener
-        this.difficultyPanel.setDifficultyChangeListener(newDifficulty -> {
-            this.rebuildGamePanel(newDifficulty);
+        this.difficultyPanel.setDifficultyChangeListener(difficulty -> {
+            this.rebuildGamePanel(difficulty);
         });
 
         // Make the JFrame visible
@@ -39,10 +41,14 @@ public class Screen extends JFrame {
         this.add(this.gamePanel, BorderLayout.CENTER);
     }
 
-    private void rebuildGamePanel(String newDifficulty) {
+    private void rebuildGamePanel(String difficulty) {
+        this.game.setGameOver(false);
+        this.difficultySettings.setDifficulty(difficulty);
+
         this.remove(this.gamePanel);
-        this.gamePanel = new GamePanel(newDifficulty);
+        this.gamePanel = new GamePanel(this.game, this.difficultySettings);
         this.add(this.gamePanel, BorderLayout.CENTER);
+
         this.revalidate();
         this.repaint();
     }
