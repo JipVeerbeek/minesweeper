@@ -9,7 +9,9 @@ public class Cell extends JPanel {
     public boolean isRevealed;
     public int neighbouringMines;
 
-    public Cell() {
+    public Cell(boolean isMine) {
+        this.isMine = isMine;
+
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
