@@ -39,13 +39,13 @@ public class GamePanel extends JPanel {
     private JPanel createGrid() {
         JPanel gridPanel = new JPanel(new GridLayout(this.gridSize, this.gridSize));
         gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 80, 40, 80));
-
+        GameOver gameOver = new GameOver();
         this.initializeMinesList();
 
         Cell[][] grid = new Cell[this.gridSize][this.gridSize];
         for (int row = 0; row < this.gridSize; row++) {
             for (int col = 0; col < this.gridSize; col++) {
-                grid[row][col] = new Cell(this.mineLocationList[row][col]);
+                grid[row][col] = new Cell(row, col, this.mineLocationList, gameOver);
                 gridPanel.add(grid[row][col]);
             }
         }
@@ -65,8 +65,6 @@ public class GamePanel extends JPanel {
             }
         }
     }
-
-    // private int neighbouringMines()
 
     private int randomize(int max) {
         return (int) (Math.random() * max);
