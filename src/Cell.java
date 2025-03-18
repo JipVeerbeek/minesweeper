@@ -37,39 +37,46 @@ public class Cell extends JPanel {
     }
 
     private void registerMouseClick(MouseEvent e) {
-        if (this.game.isGameOver()) {
+        if (this.game.isGameOver() || this.isRevealed) {
             return;
         }
 
         if (SwingUtilities.isRightMouseButton(e)) {
-            if (this.isRevealed) {
-                return;
-            }
-            this.isFlagged = !this.isFlagged;
-            if (this.isFlagged) {
-                this.setBackground(Color.ORANGE);
-            } else {
-                this.setBackground(null);
-            }
+            this.toggleFlag();
         } else if (SwingUtilities.isLeftMouseButton(e)) {
-            if (this.isRevealed || this.isFlagged) {
-                return;
-            }
-            if (this.isMine) {
-                this.game.setGameOver(true);
-                this.setBackground(Color.BLACK);
-            } else {
-                this.isRevealed = true;
-                JLabel label = new JLabel(String.valueOf(this.neighbouringMines));
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                this.add(label);
-                this.revalidate();
-                this.repaint();
-                this.setBackground(Color.LIGHT_GRAY);
-            }
-        } else {
-            System.out.println("What you doing?");
+            this.revealCell();
         }
+    }
+
+    private void toggleFlag() {
+        if (this.isRevealed) {
+            return;
+        }
+        this.isFlagged = !this.isFlagged;
+        this.setBackground(this.isFlagged ? Color.ORANGE : null);
+    }
+
+    private void revealCell() {
+        if (this.isFlagged) {
+            return;
+        }
+
+        this.isRevealed = true;
+        if (this.isMine) {
+            this.game.setGameOver(true);
+            this.setBackground(Color.BLACK);
+        } else {
+            this.displayNeighbouringMines();
+        }
+    }
+
+    private void displayNeighbouringMines() {
+        JLabel label = new JLabel(String.valueOf(this.neighbouringMines));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(label);
+        this.setBackground(Color.LIGHT_GRAY);
+        this.revalidate();
+        this.repaint();
     }
 
     private int getNeighbouringMinesCount() {
