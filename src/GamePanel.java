@@ -6,11 +6,11 @@ public class GamePanel extends JPanel {
     private int gridRowSize;
     private int gridColumnSize;
     private boolean[][] mineLocationList;
-    private Game game;
+    private GameSettings gameSettings;
     private DifficultySettings difficultySettings;
 
-    public GamePanel(Game game, DifficultySettings difficultySettings) {
-        this.game = game;
+    public GamePanel(GameSettings gameSettings, DifficultySettings difficultySettings) {
+        this.gameSettings = gameSettings;
         this.difficultySettings = difficultySettings;
         this.gridRowSize = this.difficultySettings.getGridRowSize();
         this.gridColumnSize = this.difficultySettings.getGridColumnSize();
@@ -34,7 +34,7 @@ public class GamePanel extends JPanel {
         Cell[][] grid = new Cell[this.gridRowSize][this.gridColumnSize];
         for (int row = 0; row < this.gridRowSize; row++) {
             for (int col = 0; col < this.gridColumnSize; col++) {
-                grid[row][col] = new Cell(row, col, this.mineLocationList, game);
+                grid[row][col] = new Cell(row, col, this.mineLocationList, gameSettings);
                 gridPanel.add(grid[row][col]);
             }
         }

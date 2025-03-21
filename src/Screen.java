@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Screen extends JFrame {
-    private Game game = new Game();
+    private GameSettings gameSettings = new GameSettings();
     private DifficultySettings difficultySettings = new DifficultySettings();
     // Create panels
     private DifficultyPanel difficultyPanel = new DifficultyPanel();
-    private GamePanel gamePanel = new GamePanel(this.game, this.difficultySettings);
+    private GamePanel gamePanel = new GamePanel(this.gameSettings, this.difficultySettings);
 
     // Constructor
     public Screen() {
@@ -42,11 +42,11 @@ public class Screen extends JFrame {
     }
 
     private void rebuildGamePanel(String difficulty) {
-        this.game.setGameOver(false);
+        this.gameSettings.setGameOver(false);
         this.difficultySettings.setDifficulty(difficulty);
 
         this.remove(this.gamePanel);
-        this.gamePanel = new GamePanel(this.game, this.difficultySettings);
+        this.gamePanel = new GamePanel(this.gameSettings, this.difficultySettings);
         this.add(this.gamePanel, BorderLayout.CENTER);
 
         this.revalidate();

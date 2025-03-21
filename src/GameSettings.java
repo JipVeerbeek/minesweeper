@@ -1,4 +1,4 @@
-public class Game {
+public class GameSettings {
     private boolean gameOver = false;
 
     public boolean isGameOver() {
