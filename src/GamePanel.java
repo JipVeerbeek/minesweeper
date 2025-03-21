@@ -55,6 +55,10 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void revealNeighbourlessMines() {
+        
+    }
+
     private int randomize(int max) {
         return (int) (Math.random() * max);
     }

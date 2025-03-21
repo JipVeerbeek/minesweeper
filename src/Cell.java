@@ -64,7 +64,7 @@ public class Cell extends JPanel {
         this.isRevealed = true;
         if (this.isMine) {
             this.gameSettings.setGameOver(true);
-            // new GameOverScreen(this.gameSettings);
+            new GameOverScreen(this.gameSettings);
             this.setBackground(Color.BLACK);
         } else {
             this.displayNeighbouringMines();

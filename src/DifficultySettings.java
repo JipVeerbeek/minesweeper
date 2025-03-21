@@ -26,7 +26,7 @@ public class DifficultySettings {
             case "Hard":
                 this.gridRowSize = 20;
                 this.gridColumnSize = 20;
-                this.totalMines = 60;
+                this.totalMines = 100;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficulty);
