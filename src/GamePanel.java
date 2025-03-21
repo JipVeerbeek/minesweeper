@@ -5,7 +5,6 @@ public class GamePanel extends JPanel {
     private int totalMines;
     private int gridRowSize;
     private int gridColumnSize;
-    private boolean[][] mineLocationList;
     private GameSettings gameSettings;
     private DifficultySettings difficultySettings;
 
@@ -29,35 +28,61 @@ public class GamePanel extends JPanel {
     private JPanel createGrid() {
         JPanel gridPanel = new JPanel(new GridLayout(this.gridRowSize, this.gridColumnSize));
         gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 80, 40, 80));
-        this.initializeMinesList();
+        boolean[][] mineLocationList = this.initializeMinesList();
 
         Cell[][] grid = new Cell[this.gridRowSize][this.gridColumnSize];
         for (int row = 0; row < this.gridRowSize; row++) {
             for (int col = 0; col < this.gridColumnSize; col++) {
-                grid[row][col] = new Cell(row, col, this.mineLocationList, gameSettings);
+                int neighbouringMines = 0;
+                boolean isMine = false;
+                if (mineLocationList[row][col]) {
+                    isMine = true;
+                } else {
+                    neighbouringMines = this.getNeighbouringMinesCount(mineLocationList, row, col);
+                }
+                grid[row][col] = new Cell(gameSettings, isMine, neighbouringMines);
                 gridPanel.add(grid[row][col]);
             }
         }
         return gridPanel;
     }
 
-    private void initializeMinesList() {
-        this.mineLocationList = new boolean[this.gridRowSize][this.gridColumnSize];
+    private boolean[][] initializeMinesList() {
+        boolean[][] mineLocationList = new boolean[this.gridRowSize][this.gridColumnSize];
         int minesPlaced = 0;
         while (minesPlaced < this.totalMines) {
             int row = this.randomize(this.gridRowSize);
             int col = this.randomize(this.gridColumnSize);
 
-            if (!this.mineLocationList[row][col]) {
-                this.mineLocationList[row][col] = true;
+            if (!mineLocationList[row][col]) {
+                mineLocationList[row][col] = true;
                 minesPlaced++;
             }
         }
+
+        return mineLocationList;
     }
 
-    private void revealNeighbourlessMines() {
-        
-    }
+    private int getNeighbouringMinesCount(boolean[][] mineLocationList, int row, int col) {
+        int totalMines = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int neighbourRow = row + i;
+                int neighbourCol = col + j;
+
+                boolean isValidRow = neighbourRow >= 0 && neighbourRow < mineLocationList.length;
+                boolean isValidCol = neighbourCol >= 0 && neighbourCol < mineLocationList[0].length;
+                boolean isNotCurrentCell = i != 0 || j != 0;
+
+                if (isValidRow && isValidCol && isNotCurrentCell) {
+                    if (mineLocationList[neighbourRow][neighbourCol]) {
+                        totalMines++;
+                    }
+                }
+            }
+        }
+        return totalMines;
+    } 
 
     private int randomize(int max) {
         return (int) (Math.random() * max);

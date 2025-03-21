@@ -4,7 +4,7 @@ import java.awt.*;
 public class GameOverScreen extends JFrame {
     private GameSettings gameSettings;
 
-    public GameOverScreen(GameSettings gameSettings) {
+    public GameOverScreen(GameSettings gameSettings, String message) {
         this.gameSettings = gameSettings;
 
         this.setTitle("Game Over");
@@ -12,7 +12,7 @@ public class GameOverScreen extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel("Game Over");
+        JLabel label = new JLabel(message);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(label, BorderLayout.CENTER);
 
