@@ -23,11 +23,10 @@ public class DifficultyPanel extends JPanel implements ActionListener {
         this.listener = listener;
     }
 
-    private JButton createButton(String text) {
+    private void createButton(String text) {
         JButton button = new JButton(text);
         button.addActionListener(this);
         this.add(button);
-        return button;
     }
 
     // Constructor
