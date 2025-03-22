@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Screen extends JFrame {
     private GameSettings gameSettings = new GameSettings();
-    private DifficultySettings difficultySettings = new DifficultySettings();
+    private DifficultySettings difficultySettings = new DifficultySettings(this.gameSettings);
     // Create panels
     private DifficultyPanel difficultyPanel = new DifficultyPanel();
     private GamePanel gamePanel = new GamePanel(this.gameSettings, this.difficultySettings);

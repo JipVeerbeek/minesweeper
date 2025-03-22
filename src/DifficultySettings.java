@@ -3,7 +3,12 @@ public class DifficultySettings {
     private int gridRowSize = 15;
     private int gridColumnSize = 15;
     private int totalMines = 30;
-    private GameSettings gameSettings = new GameSettings();
+    private GameSettings gameSettings;
+
+    // Constructor
+    public DifficultySettings(GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+    }
 
     // Getter for difficulty
     public String getDifficulty() {
